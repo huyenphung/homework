@@ -12,7 +12,7 @@ public class HomePage {
 		PageFactory.initElements(testBase.driver, this);
 	}
 
-	@FindBy(xpath = "//a[@title='Women']")
+	@FindBy(xpath = "//*[@id='block_top_menu']//a")
 	public static WebElement HoverWomen;
 
 	@FindBy(xpath = "//*[@id='block_top_menu']//a[@title='T-shirts']")
