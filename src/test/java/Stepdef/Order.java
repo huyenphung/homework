@@ -1,5 +1,7 @@
 package Stepdef;
 
+import java.util.Map;
+
 import org.openqa.selenium.interactions.Actions;
 
 import Base.testBase;
@@ -8,6 +10,7 @@ import Pages.CheckOutSummaryPage;
 import Pages.HomePage;
 import Pages.ListOfProductAfterSearchPage;
 import Pages.SelectProduct;
+import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -86,11 +89,12 @@ public class Order {
 		checkOut.clickOnCheckOutBtn.click();
 	}
 
-	@Then("^Verify information of product is \"([^\"]*)\" products$")
-	public void verify_number_of_product_on_is_on_Shoping_card_summary_screen(String expected)
-			throws InterruptedException {
-		Thread.sleep(3000);
-		Assert.assertEquals(expected, checkOutSummary.informationOfProduct.getAttribute("value"));
+	@Then("^Verify information of product is$")
+	public void verify_information_of_product_is(DataTable dataTable) throws Throwable {
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		Assert.assertEquals(map.get("ProductNumber"), checkOutSummary.ProductNumber.getAttribute("value"));
+		Assert.assertEquals(map.get("otherInfor"), checkOutSummary.otherInfor.getText());
+		Assert.assertEquals(map.get("TotalPrice"), checkOutSummary.totalPrice.getText());
 
 	}
 
@@ -100,11 +104,7 @@ public class Order {
 		Thread.sleep(3000);
 	}
 
-	@And("^verify the price of ordered products is \"([^\"]*)\"$")
-	public void verify_the_price_of_ordered_products_is(String price) {
-		Assert.assertEquals(price, checkOutSummary.totalPrice.getText());
 
-	}
 
 	@And("^minus one production$")
 	public void minus_one_production() throws InterruptedException {
@@ -113,10 +113,5 @@ public class Order {
 		Thread.sleep(3000);
 	}
 
-	@Then("^verify the total price of the product is \"([^\"]*)\"$")
-	public void verify_the_total_price_of_the_product_is(String price) throws InterruptedException {
-		Assert.assertEquals(price, checkOutSummary.totalPrice.getText());
-		Thread.sleep(3000);
-	}
 
 }
