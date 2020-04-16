@@ -74,10 +74,11 @@ public class Order {
 
 	@And("^select \"([^\"]*)\" color$")
 	public void select_color(String color) {
-		String x = selectProduct.selectColor.getAttribute("name");
-		if (color == x) {
-			selectProduct.selectColor.click();
-		}
+		String x = selectProduct.selectColor(color);
+//		String x = selectProduct.selectColor.getAttribute("name");
+//		if (color == x) {
+//			selectProduct.selectColor.click();
+//		}
 
 
 	}

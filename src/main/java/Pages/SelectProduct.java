@@ -1,5 +1,6 @@
 package Pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -20,5 +21,10 @@ public class SelectProduct {
 
 	@FindBy(xpath = "//*[@id='add_to_cart']//span")
 	public static WebElement addToCard;
+
+	public String selectColor(String color) {
+		testBase.driver.findElement(By.xpath("//a[@name='"+color+"']")).click();
+		return color;
+	}
 
 }
