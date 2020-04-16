@@ -60,3 +60,17 @@ Feature: Order scenario
       | ProductNumber |                      3 |
       | otherInfor    | Color : Blue, Size : S |
       | TotalPrice    | $18.51                 |
+
+  @order @4
+  Scenario: Verify the customer able to order TShirt and remove the ordered products
+  Given I launch the page
+  When i click on Women
+  And i can see list of women's product category is "WOMEN"
+  Then i select "Faded Short Sleeve T-shirts" 
+  And Add to cart button
+  And Continue to shopping
+  And i hover on Cart list
+  Then i can see all of are corrected
+  |item1 |Faded Short Sleeve T-shirts|
+  |item2|Blouse|
+  |item3|Printed Dress|

@@ -24,6 +24,7 @@ public class SelectProduct {
 
 	public String selectColor(String color) {
 		testBase.driver.findElement(By.xpath("//a[@name='"+color+"']")).click();
+
 		return color;
 	}
 
