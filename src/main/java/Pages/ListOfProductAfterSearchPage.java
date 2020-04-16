@@ -15,6 +15,6 @@ public class ListOfProductAfterSearchPage {
 	@FindBy(xpath = "//*[@id='center_column']//span[@class='cat-name']")
 	public static WebElement searchPageTitle;
 
-	@FindBy(xpath = "//*[@id='center_column']//img[@itemprop='image']")
+	@FindBy(xpath = "//*[@id='center_column']/ul/li/div/div[2]/h5/a")
 	public static WebElement TshirtThumbnail;
 }

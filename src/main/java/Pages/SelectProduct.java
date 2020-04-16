@@ -12,10 +12,10 @@ public class SelectProduct {
 		PageFactory.initElements(testBase.driver, this);
 	}
 
-	@FindBy(xpath = "//*[@id='quantity_wanted']")
+	@FindBy(xpath = "//input[@id='quantity_wanted']")
 	public static WebElement numberOfProduct;
 
-	@FindBy(xpath = "//*[@name='Blue']")
+	@FindBy(xpath = "//fieldset[@class='attribute_fieldset']//a[@name='Blue']")
 	public static WebElement selectColor;
 
 	@FindBy(xpath = "//*[@id='add_to_cart']//span")

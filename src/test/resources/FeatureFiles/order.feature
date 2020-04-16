@@ -9,7 +9,7 @@ Feature: Order scenario
     And i can see list of T-shirt page
     And click on a product
     And buy "2" T-shirt
-    And select blue color
+    And select "Blue" color
     And click on Add to card
     And app shows "Faded Short Sleeve T-shirts" on checkout popup
     And click on Proceed to checkout

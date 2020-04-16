@@ -55,20 +55,30 @@ public class Order {
 	@And("^click on a product$")
 	public void click_on_a_product() throws InterruptedException {
 		productList.TshirtThumbnail.click();
-		Thread.sleep(2000);
+		Thread.sleep(6000);
+
 
 	}
 
 	@And("^buy \"([^\"]*)\" T-shirt$")
-	public void buy_T_shirt(String number) {
+	public void buy_T_shirt(String number) throws InterruptedException {
+
+		// testBase.driver.switchTo().frame("fancybox-frame1587024148811");
 		selectProduct.numberOfProduct.clear();
+
 		selectProduct.numberOfProduct.sendKeys(number);
 
 	}
 
-	@And("^select blue color$")
-	public void select_blue_color() {
-		selectProduct.selectColor.click();
+
+
+	@And("^select \"([^\"]*)\" color$")
+	public void select_color(String color) {
+		String x = selectProduct.selectColor.getAttribute("name");
+		if (color == x) {
+			selectProduct.selectColor.click();
+		}
+
 
 	}
 
@@ -95,6 +105,7 @@ public class Order {
 		Assert.assertEquals(map.get("ProductNumber"), checkOutSummary.ProductNumber.getAttribute("value"));
 		Assert.assertEquals(map.get("otherInfor"), checkOutSummary.otherInfor.getText());
 		Assert.assertEquals(map.get("TotalPrice"), checkOutSummary.totalPrice.getText());
+		
 
 	}
 

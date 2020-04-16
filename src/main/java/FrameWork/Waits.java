@@ -22,6 +22,7 @@ public class Waits {
 	
 	public static void setImplicitWait(int time){
 		testBase.driver.manage().timeouts().implicitlyWait(time, TimeUnit.SECONDS);
+		testBase.driver.manage().timeouts().pageLoadTimeout(40, TimeUnit.SECONDS);
 	}
 	
 	
