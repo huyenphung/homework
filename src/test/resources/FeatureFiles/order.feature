@@ -67,10 +67,17 @@ Feature: Order scenario
   When i click on Women
   And i can see list of women's product category is "WOMEN"
   Then i select "Faded Short Sleeve T-shirts" 
-  And Add to cart button
+  And Add to cart button for "1" product
   And Continue to shopping
+   Then i select "Blouse" shirt
+   And Add to cart button for "2" product
+And Continue to shopping
+  #And Continue to shopping in the second time
   And i hover on Cart list
-  Then i can see all of are corrected
+  Then i can see all selected products are corrected
   |item1 |Faded Short Sleeve T-shirts|
   |item2|Blouse|
-  |item3|Printed Dress|
+ 
+
+  
+    

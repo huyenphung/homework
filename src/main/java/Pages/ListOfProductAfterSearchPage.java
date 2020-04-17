@@ -30,17 +30,26 @@ public class ListOfProductAfterSearchPage {
 	public static WebElement ThishoverOnProduct;
 
 
-	@FindBy(xpath = "//div[@class='product-container']//a[@title='Add to cart']")
-	public static WebElement addToCartBtn;
-
 	@FindBy(xpath = "//div[@id='layer_cart']//span[@title='Continue shopping']")
 	public static WebElement ContinueShopping;
 
 	@FindBy(xpath = "//a[@title='View my shopping cart']")
 	public static WebElement hoverOnListOfCart;
 
+	@FindBy(xpath = "// li//div//a//img[@itemprop]")
+	public static WebElement listOfProduct;
 
-	public static String verifyItem1(DataTable dataTable) {
+	public static String addToCartBtn(String number) {
+		testBase.driver
+				.findElement(By.xpath("//div[@class='product-container']//a[@data-id-product='" + number
+						+ "' and @title='Add to cart']"))
+				.click();
+
+		return number;
+	}
+
+	public static String verifyItem1(DataTable dataTable) throws InterruptedException {
+		Thread.sleep(3000);
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		WebElement x = testBase.driver
 				.findElement(By.xpath("//div[@class='cart_block_list']//a[@title='" + map.get("item1") + "']"));
@@ -48,16 +57,24 @@ public class ListOfProductAfterSearchPage {
 		return a;
 	}
 
-	public static void hoverOnProduct(String firtProduct)
+	public static String verifyItem2(DataTable dataTable) throws InterruptedException {
+		Thread.sleep(3000);
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		WebElement y = testBase.driver
+				.findElement(By.xpath("//div[@class='cart_block_list']//a[@title='" + map.get("item2") + "']"));
+		String b = y.getAttribute("title");
+		return b;
+	}
 
-	{
-//		Map<String, String> map = dataTable.asMap(String.class, String.class);
-WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + firtProduct + "']"));
-
+	public static void hoverOnProduct(String product) {
+		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
 		Actions action = new Actions(testbase.driver);
 		action.moveToElement(x).clickAndHold().perform();
-		
 	}
+
+
+
+
 
 
 }

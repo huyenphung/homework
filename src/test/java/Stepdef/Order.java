@@ -121,6 +121,7 @@ public class Order {
 	@When("^i click on Women$")
 	public void i_click_on_Women() throws Throwable {
 		homePage.HoverWomen.click();
+		Thread.sleep(3000);
 	}
 
 	@And("^i can see list of women's product category is \"([^\"]*)\"$")
@@ -131,22 +132,31 @@ public class Order {
 	}
 
 	@Then("^i select \"([^\"]*)\"$")
-	public void i_select_some_item_as_blow_list(String firtProduct) throws Throwable {
-		ListOfProductAfterSearchPage.hoverOnProduct(firtProduct);
-		Thread.sleep(3000);
+	public void i_select_some_item_as_blow_list(String product) throws Throwable {
+		ListOfProductAfterSearchPage.hoverOnProduct(product);
+		Thread.sleep(6000);
+
 
 	}
 
-	@Then("^Add to cart button$")
-	public void add_to_cart_button() throws Throwable {
-		ListOfProductAfterSearchPage.addToCartBtn.click();
-		Thread.sleep(3000);
+	@Then("^Add to cart button for \"([^\"]*)\" product$")
+	public void add_to_cart_button(String number) throws Throwable {
+		ListOfProductAfterSearchPage.addToCartBtn(number);
+		Thread.sleep(5000);
 	}
+
 
 	@Then("^Continue to shopping$")
 	public void continue_to_shopping() throws Throwable {
 		ListOfProductAfterSearchPage.ContinueShopping.click();
 		Thread.sleep(3000);
+	}
+
+
+	@Then("^i select \"([^\"]*)\" shirt$")
+	public void i_select_shirt(String product) throws Throwable {
+		ListOfProductAfterSearchPage.hoverOnProduct(product);
+		Thread.sleep(5000);
 	}
 
 
@@ -156,16 +166,16 @@ public class Order {
 		Actions action = new Actions(testbase.driver);
 		action.moveToElement(ListOfProductAfterSearchPage.hoverOnListOfCart).perform();
 		Thread.sleep(2000);
-
-
 	}
 
-	@Then("^i can see all of are corrected$")
+	@Then("^i can see all selected products are corrected$")
 	public void i_can_see_all_of_are_corrected(DataTable dataTable) throws Throwable {
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		Assert.assertEquals(map.get("item1"), ListOfProductAfterSearchPage.verifyItem1(dataTable));
-
+		Assert.assertEquals(map.get("item2"), ListOfProductAfterSearchPage.verifyItem2(dataTable));
+		Thread.sleep(2000);
 
 	}
+
 
 }
