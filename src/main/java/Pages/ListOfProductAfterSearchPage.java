@@ -34,22 +34,35 @@ public class ListOfProductAfterSearchPage {
 	public static WebElement ContinueShopping;
 
 	@FindBy(xpath = "//a[@title='View my shopping cart']")
-	public static WebElement hoverOnListOfCart;
+	public static WebElement ListOfCart;
+	
 
-	@FindBy(xpath = "// li//div//a//img[@itemprop]")
-	public static WebElement listOfProduct;
+	public static String quantity() {
 
-	public static String addToCartBtn(String number) {
+		WebElement x = testBase.driver
+				.findElement(By.xpath("//div[@class='header-container']//span[@class='ajax_cart_quantity']"));
+		String a = x.getText();
+		return a;
+	}
+
+	public static String addToCartBtn(String product) {
 		testBase.driver
-				.findElement(By.xpath("//div[@class='product-container']//a[@data-id-product='" + number
-						+ "' and @title='Add to cart']"))
+				.findElement(By.xpath(
+						"//div[@class='product-container']//a[@title='" + product
+								+ "']//parent::h5//parent::div//a[@title='Add to cart']"))
 				.click();
 
-		return number;
+		return product;
+	}
+
+	public static void hoverOnProduct(String product) {
+		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
+		Actions action = new Actions(testbase.driver);
+		action.moveToElement(x).clickAndHold().perform();
 	}
 
 	public static String verifyItem1(DataTable dataTable) throws InterruptedException {
-		Thread.sleep(3000);
+
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		WebElement x = testBase.driver
 				.findElement(By.xpath("//div[@class='cart_block_list']//a[@title='" + map.get("item1") + "']"));
@@ -57,19 +70,14 @@ public class ListOfProductAfterSearchPage {
 		return a;
 	}
 
+
 	public static String verifyItem2(DataTable dataTable) throws InterruptedException {
-		Thread.sleep(3000);
+
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		WebElement y = testBase.driver
 				.findElement(By.xpath("//div[@class='cart_block_list']//a[@title='" + map.get("item2") + "']"));
 		String b = y.getAttribute("title");
 		return b;
-	}
-
-	public static void hoverOnProduct(String product) {
-		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
-		Actions action = new Actions(testbase.driver);
-		action.moveToElement(x).clickAndHold().perform();
 	}
 
 

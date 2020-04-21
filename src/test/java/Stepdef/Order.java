@@ -126,37 +126,38 @@ public class Order {
 
 	@And("^i can see list of women's product category is \"([^\"]*)\"$")
 	public void i_can_see_list_of_women_s_product(String expected) throws Throwable {
-		Thread.sleep(3000);
+		
 		Assert.assertEquals(expected, productList.listOfWomendress.getText());
+		Thread.sleep(2000);
 
 	}
 
 	@Then("^i select \"([^\"]*)\"$")
 	public void i_select_some_item_as_blow_list(String product) throws Throwable {
 		ListOfProductAfterSearchPage.hoverOnProduct(product);
-		Thread.sleep(6000);
+		Thread.sleep(2000);
 
 
 	}
 
 	@Then("^Add to cart button for \"([^\"]*)\" product$")
-	public void add_to_cart_button(String number) throws Throwable {
-		ListOfProductAfterSearchPage.addToCartBtn(number);
-		Thread.sleep(5000);
+	public void add_to_cart_button(String product) throws Throwable {
+		ListOfProductAfterSearchPage.addToCartBtn(product);
+		Thread.sleep(2000);
 	}
 
 
 	@Then("^Continue to shopping$")
 	public void continue_to_shopping() throws Throwable {
 		ListOfProductAfterSearchPage.ContinueShopping.click();
-		Thread.sleep(3000);
+		Thread.sleep(2000);
 	}
 
 
 	@Then("^i select \"([^\"]*)\" shirt$")
 	public void i_select_shirt(String product) throws Throwable {
 		ListOfProductAfterSearchPage.hoverOnProduct(product);
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 	}
 
 
@@ -164,18 +165,59 @@ public class Order {
 	public void i_hover_on_Cart_list() throws Throwable {
 
 		Actions action = new Actions(testbase.driver);
-		action.moveToElement(ListOfProductAfterSearchPage.hoverOnListOfCart).perform();
-		Thread.sleep(2000);
+		action.moveToElement(ListOfProductAfterSearchPage.ListOfCart).perform();
+		Thread.sleep(3000);
 	}
 
 	@Then("^i can see all selected products are corrected$")
 	public void i_can_see_all_of_are_corrected(DataTable dataTable) throws Throwable {
+
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		Assert.assertEquals(map.get("item1"), ListOfProductAfterSearchPage.verifyItem1(dataTable));
 		Assert.assertEquals(map.get("item2"), ListOfProductAfterSearchPage.verifyItem2(dataTable));
-		Thread.sleep(2000);
+		Assert.assertEquals(map.get("quantity"), ListOfProductAfterSearchPage.quantity());
 
 	}
+
+	// Testcase 5
+	@And("^i click on Cart list$")
+	public void i_click_on_Cart_list() throws Throwable {
+		ListOfProductAfterSearchPage.ListOfCart.click();
+
+	}
+
+	@And("^i can see list of my product screen$")
+	public void i_can_see_list_of_my_product_screen_with_title() throws Throwable {
+		Assert.assertTrue(CheckOutSummaryPage.listOfProductScreen.isDisplayed());
+
+
+	}
+
+	@And("^i add one more \"([^\"]*)\" product$")
+	public void i_add_one_more_product(String product) throws Throwable {
+		CheckOutSummaryPage.addMoreBlouse(product);
+		Thread.sleep(3000);
+
+	}
+
+	@And("^i delete \"([^\"]*)\" product$")
+	public void i_delete_product(String product) throws Throwable {
+		CheckOutSummaryPage.remove1Product(product);
+		Thread.sleep(3000);
+	}
+
+	@Then("^i check my product list as bellow:$")
+	public void i_check_my_product_list_as_bellow(DataTable dataTable) throws Throwable {
+
+		Assert.assertEquals(CheckOutSummaryPage.expectedItem1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
+		Assert.assertEquals(CheckOutSummaryPage.expectedItem2(dataTable), CheckOutSummaryPage.myProduct2(dataTable));
+		Assert.assertEquals(CheckOutSummaryPage.expectedquantity1(dataTable),
+				CheckOutSummaryPage.myQuantity1(dataTable));
+		Assert.assertEquals(CheckOutSummaryPage.expectedquantity2(dataTable),
+				CheckOutSummaryPage.myQuantity2(dataTable));
+
+	}
+
 
 
 }

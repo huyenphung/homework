@@ -27,6 +27,7 @@ public class Browser {
 			log.info("Chrome Browser is Started" + testBase.driver.hashCode());
 			return testBase.driver;
 
+
 		case "ie":
 			WebDriverManager.iedriver().setup();
 			testBase.driver = new InternetExplorerDriver();
