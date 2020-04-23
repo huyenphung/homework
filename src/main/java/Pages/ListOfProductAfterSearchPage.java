@@ -3,10 +3,14 @@ package Pages;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Base.testBase;
 import cucumber.api.DataTable;
@@ -80,7 +84,38 @@ public class ListOfProductAfterSearchPage {
 		return b;
 	}
 
+	public static void addToCart(String product) {
+		Actions action = new Actions(testbase.driver);
+		JavascriptExecutor js = (JavascriptExecutor) testbase.driver;
+		WebElement productImage = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
+		WebElement btnAddToCart = testBase.driver.findElement(By.xpath("//div[@class='product-container']//a[@title='" + product
+				+ "']//parent::h5//parent::div//a[@title='Add to cart']"));
+		
+		js.executeScript("arguments[0].scrollIntoView();", productImage);
+		
+		action.moveToElement(productImage).moveToElement(btnAddToCart).click().build().perform();
+		
+	}
 
+	public static void waitForPopupDisplayed() {
+		waitForElementAttributeContainValue("//*[@id='layer_cart']", "style", "block", 7);
+	}
+	
+	public static void waitForPopupClosed() {
+		waitForElementAttributeContainValue("//*[@id='layer_cart']", "style", "none", 7);
+	}
+
+	private static void waitForElementAttributeContainValue(String _xpath, String _attributeName, String _attributeValue,
+			int _timeOutInSecond) {
+		WebDriverWait wait = new WebDriverWait(testbase.driver, _timeOutInSecond);
+
+		wait.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver driver) {
+				return driver.findElement(By.xpath(_xpath)).getAttribute(_attributeName).contains(_attributeValue);
+			}
+		});
+	}
 
 
 
