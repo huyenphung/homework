@@ -141,35 +141,38 @@ public class Order {
 
 	@Then("^i select \"([^\"]*)\" shirt$")
 	public void i_select_shirt(String product) throws Throwable {
-		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
-		js.executeScript("arguments[0].scrollIntoView();", x);
-		
-		ListOfProductAfterSearchPage.hoverOnProduct(product);
-		Thread.sleep(2000);
+//		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
+//		js.executeScript("arguments[0].scrollIntoView();", x);
+//		
+//		ListOfProductAfterSearchPage.hoverOnProduct(product);
+//		Thread.sleep(2000);
+		ListOfProductAfterSearchPage.addToCart(product);
 	}
 
 	@And("^Add to cart button for \"([^\"]*)\" product$")
 	public void add_to_cart_button(String product) throws Throwable {
-		//"arguments[0].scrollIntoView(true);"
-		WebElement x = testBase.driver
-				.findElement(By.xpath(
-						"//div[@class='product-container']//a[@title='" + product
-								+ "']//parent::h5//parent::div//a[@title='Add to cart']"));
-		js.executeScript("arguments[0].scrollIntoView(!false);", x);
+//		//"arguments[0].scrollIntoView(true);"
+//		WebElement x = testBase.driver
+//				.findElement(By.xpath(
+//						"//div[@class='product-container']//a[@title='" + product
+//								+ "']//parent::h5//parent::div//a[@title='Add to cart']"));
+//		js.executeScript("arguments[0].scrollIntoView(!false);", x);
+//		
+//		ListOfProductAfterSearchPage.addToCartBtn(product);
+//		Thread.sleep(2000);
 		
-		ListOfProductAfterSearchPage.addToCartBtn(product);
-		Thread.sleep(2000);
+		
+		ListOfProductAfterSearchPage.addToCart(product);
 	}
 
 
 	@And("^Continue to shopping$")
 	public void continue_to_shopping() throws Throwable {
+		ListOfProductAfterSearchPage.waitForPopupDisplayed();
 		ListOfProductAfterSearchPage.ContinueShopping.click();
-		Thread.sleep(2000);
+		ListOfProductAfterSearchPage.waitForPopupClosed();
+		//Thread.sleep(2000);
 	}
-
-
-
 
 	@And("^i hover on Cart list$")
 	public void i_hover_on_Cart_list() throws Throwable {
