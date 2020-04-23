@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.safari.SafariDriver;
 
 import Base.testBase;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -27,7 +28,11 @@ public class Browser {
 			log.info("Chrome Browser is Started" + testBase.driver.hashCode());
 			return testBase.driver;
 
-
+		case "safari":
+			testBase.driver = new SafariDriver();
+			log.info("Safari Browser is Started" + testBase.driver.hashCode());
+			return testBase.driver;
+			
 		case "ie":
 			WebDriverManager.iedriver().setup();
 			testBase.driver = new InternetExplorerDriver();

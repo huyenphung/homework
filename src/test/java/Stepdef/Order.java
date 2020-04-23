@@ -2,6 +2,9 @@ package Stepdef;
 
 import java.util.Map;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import Base.testBase;
@@ -25,6 +28,7 @@ public class Order {
 	CheckOutPage checkOut = new CheckOutPage();
 	CheckOutSummaryPage checkOutSummary = new CheckOutSummaryPage();
 	testBase testbase = new testBase();
+	JavascriptExecutor js = (JavascriptExecutor) testbase.driver;
 
 	@Given("^I launch the page$")
 	public void i_launch_the_page() {
@@ -33,7 +37,8 @@ public class Order {
 
 	@When("^i hover on Women$")
 	public void i_hover_on_Women() {
-
+	
+		js.executeScript("arguments[0].scrollIntoView();", homePage.HoverWomen);
 		Actions action = new Actions(testbase.driver);
 		action.moveToElement(homePage.HoverWomen).clickAndHold().perform();
 
@@ -81,6 +86,8 @@ public class Order {
 
 	@And("^click on Add to card$")
 	public void click_on_Add_to_card() throws InterruptedException {
+		
+
 		selectProduct.addToCard.click();
 		Thread.sleep(3000);
 
@@ -132,33 +139,36 @@ public class Order {
 
 	}
 
-	@Then("^i select \"([^\"]*)\"$")
-	public void i_select_some_item_as_blow_list(String product) throws Throwable {
+	@Then("^i select \"([^\"]*)\" shirt$")
+	public void i_select_shirt(String product) throws Throwable {
+		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
+		js.executeScript("arguments[0].scrollIntoView();", x);
+		
 		ListOfProductAfterSearchPage.hoverOnProduct(product);
 		Thread.sleep(2000);
-
-
 	}
 
-	@Then("^Add to cart button for \"([^\"]*)\" product$")
+	@And("^Add to cart button for \"([^\"]*)\" product$")
 	public void add_to_cart_button(String product) throws Throwable {
+		//"arguments[0].scrollIntoView(true);"
+		WebElement x = testBase.driver
+				.findElement(By.xpath(
+						"//div[@class='product-container']//a[@title='" + product
+								+ "']//parent::h5//parent::div//a[@title='Add to cart']"));
+		js.executeScript("arguments[0].scrollIntoView(!false);", x);
+		
 		ListOfProductAfterSearchPage.addToCartBtn(product);
 		Thread.sleep(2000);
 	}
 
 
-	@Then("^Continue to shopping$")
+	@And("^Continue to shopping$")
 	public void continue_to_shopping() throws Throwable {
 		ListOfProductAfterSearchPage.ContinueShopping.click();
 		Thread.sleep(2000);
 	}
 
 
-	@Then("^i select \"([^\"]*)\" shirt$")
-	public void i_select_shirt(String product) throws Throwable {
-		ListOfProductAfterSearchPage.hoverOnProduct(product);
-		Thread.sleep(2000);
-	}
 
 
 	@And("^i hover on Cart list$")
