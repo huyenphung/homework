@@ -109,3 +109,8 @@ Feature: Order scenario
       | quantity1 |                    2 |
       | item2     | Printed Summer Dress |
       | quantity2 |                    1 |
+     And i click on Check out button
+     And go to check out screen or login screen user enter username and password as below:
+     |username| huyen.phung@digimed.vn|
+     |password|123456|
+     And i can see the delivery address

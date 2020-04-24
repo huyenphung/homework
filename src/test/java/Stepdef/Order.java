@@ -6,13 +6,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.internal.Coordinates;
 
 import Base.testBase;
+import Pages.AddressScreen;
 import Pages.CheckOutPage;
 import Pages.CheckOutSummaryPage;
 import Pages.HomePage;
 import Pages.ListOfCart;
 import Pages.ListOfProductAfterSearchPage;
+import Pages.LoginScreen;
 import Pages.SelectProduct;
 import cucumber.api.DataTable;
 import cucumber.api.java.en.And;
@@ -31,6 +34,8 @@ public class Order {
 	testBase testbase = new testBase();
 	JavascriptExecutor js = (JavascriptExecutor) testbase.driver;
 	ListOfCart listOfcart = new ListOfCart();
+	AddressScreen addressScreen = new AddressScreen();
+	LoginScreen login = new LoginScreen();
 
 	@Given("^I launch the page$")
 	public void i_launch_the_page() {
@@ -39,7 +44,7 @@ public class Order {
 
 	@When("^i hover on Women$")
 	public void i_hover_on_Women() {
-	
+
 		js.executeScript("arguments[0].scrollIntoView();", homePage.HoverWomen);
 		Actions action = new Actions(testbase.driver);
 		action.moveToElement(homePage.HoverWomen).clickAndHold().perform();
@@ -68,7 +73,6 @@ public class Order {
 	@And("^buy \"([^\"]*)\" T-shirt$")
 	public void buy_T_shirt(String number) throws InterruptedException {
 
-		
 		selectProduct.numberOfProduct.clear();
 
 		selectProduct.numberOfProduct.sendKeys(number);
@@ -84,7 +88,6 @@ public class Order {
 
 	@And("^click on Add to card$")
 	public void click_on_Add_to_card() throws InterruptedException {
-		
 
 		selectProduct.addToCard.click();
 		Thread.sleep(3000);
@@ -131,7 +134,7 @@ public class Order {
 
 	@And("^i can see list of women's product category is \"([^\"]*)\"$")
 	public void i_can_see_list_of_women_s_product(String expected) throws Throwable {
-		
+
 		Assert.assertEquals(expected, productList.listOfWomendress.getText());
 		Thread.sleep(2000);
 
@@ -144,18 +147,16 @@ public class Order {
 
 	@And("^Add to cart button for \"([^\"]*)\" product$")
 	public void add_to_cart_button(String product) throws Throwable {
-		
-		
+
 		ListOfProductAfterSearchPage.addToCart(product);
 	}
-
 
 	@And("^Continue to shopping$")
 	public void continue_to_shopping() throws Throwable {
 		ListOfProductAfterSearchPage.waitForPopupDisplayed();
 		ListOfProductAfterSearchPage.ContinueShopping.click();
 		ListOfProductAfterSearchPage.waitForPopupClosed();
-		//Thread.sleep(2000);
+		
 	}
 
 	@And("^i hover on Cart list$")
@@ -172,7 +173,8 @@ public class Order {
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		Assert.assertEquals(map.get("item1"), ListOfProductAfterSearchPage.verifyItem1(dataTable));
 		Assert.assertEquals(map.get("item2"), ListOfProductAfterSearchPage.verifyItem2(dataTable));
-	//	Assert.assertEquals(map.get("quantity"), ListOfProductAfterSearchPage.quantity());
+		// Assert.assertEquals(map.get("quantity"),
+		// ListOfProductAfterSearchPage.quantity());
 
 	}
 
@@ -186,7 +188,6 @@ public class Order {
 	@And("^i can see list of my product screen$")
 	public void i_can_see_list_of_my_product_screen_with_title() throws Throwable {
 		Assert.assertTrue(CheckOutSummaryPage.listOfProductScreen.isDisplayed());
-
 
 	}
 
@@ -206,7 +207,7 @@ public class Order {
 	@Then("^i check my product list as bellow:$")
 	public void i_check_my_product_list_as_bellow(DataTable dataTable) throws Throwable {
 
-	Assert.assertEquals(CheckOutSummaryPage.expectedItem1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
+		Assert.assertEquals(CheckOutSummaryPage.expectedItem1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
 		Assert.assertEquals(CheckOutSummaryPage.expectedItem2(dataTable), CheckOutSummaryPage.myProduct2(dataTable));
 		Assert.assertEquals(CheckOutSummaryPage.expectedquantity1(dataTable),
 				CheckOutSummaryPage.myQuantity1(dataTable));
@@ -214,16 +215,42 @@ public class Order {
 				CheckOutSummaryPage.myQuantity2(dataTable));
 
 	}
-	
-	@Then("^i compare with the data on list of card$")
+
+	@And("^i compare with the data on list of card$")
 	public void i_compare_with_the_data_on_list_of_card(DataTable dataTable) throws Throwable {
-Assert.assertEquals(listOfcart.myProduct1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
-Assert.assertEquals(listOfcart.myQuantity1(dataTable), CheckOutSummaryPage.myQuantity1(dataTable));
-Assert.assertEquals(listOfcart.myProduct2(dataTable), CheckOutSummaryPage.myProduct2(dataTable));
-Assert.assertEquals(listOfcart.myQuantity2(dataTable), CheckOutSummaryPage.myQuantity2(dataTable));	
-	 
+		Assert.assertEquals(listOfcart.myProduct1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
+		Assert.assertEquals(listOfcart.myQuantity1(dataTable), CheckOutSummaryPage.myQuantity1(dataTable));
+		Assert.assertEquals(listOfcart.myProduct2(dataTable), CheckOutSummaryPage.myProduct2(dataTable));
+		Assert.assertEquals(listOfcart.myQuantity2(dataTable), CheckOutSummaryPage.myQuantity2(dataTable));
+
 	}
 
+	@And("^i click on Check out button$")
+	public void i_click_on_Check_out_button() {
+
+		Actions actions = new Actions(testbase.driver);
+		actions.moveToElement(CheckOutSummaryPage.clickOnCheckout);
+
+		// js.executeScript("arguments[0].scrollIntoView();",
+		// CheckOutSummaryPage.clickOnCheckout);
+
+		CheckOutSummaryPage.clickOnCheckout.click();
+	}
+
+	@And("^go to check out screen or login screen user enter username and password as below:$")
+	public void user_enter_username_and_password_as_below(DataTable dataTable) throws Throwable {
+		Boolean text = login.Authentication.isDisplayed();
+		if (text) {
+			LoginScreen.EnterUserAndPassword(dataTable);
+		} else {
+			Assert.assertTrue(AddressScreen.address.isDisplayed());
+
+		}
+	}
+	@Then("^i can see the delivery address$")
+	public void i_can_see_the_delivery_address() throws Throwable {
+	  Assert.assertTrue(AddressScreen.DeliveryAddress.isDisplayed());
+	}
 
 
 }

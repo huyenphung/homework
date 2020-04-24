@@ -1,7 +1,5 @@
 package Pages;
 
-
-
 import java.util.Map;
 
 import org.openqa.selenium.By;
@@ -18,14 +16,11 @@ public class CheckOutSummaryPage {
 		PageFactory.initElements(testBase.driver, this);
 	}
 
-
 	@FindBy(xpath = "//div[@class='cart_quantity_button clearfix']//a[2]//i")
 	public static WebElement addMore;
 
 	@FindBy(xpath = "//div[@class='cart_quantity_button clearfix']//a[1]//i")
 	public static WebElement MinusProduct;
-
-
 
 	@FindBy(xpath = "//td[@class='cart_quantity text-center']//input[@type]")
 	public static WebElement ProductNumber;
@@ -39,6 +34,10 @@ public class CheckOutSummaryPage {
 	@FindBy(xpath = "//*[@id='columns']//span[@class='navigation_page']")
 	public static WebElement listOfProductScreen;
 
+	// Click to check out
+	@FindBy(xpath = "//p[@class='cart_navigation clearfix']//a[@title='Proceed to checkout']//span")
+	public static WebElement clickOnCheckout;
+
 	// add 1 more Blouse
 	public static String addMoreBlouse(String product) {
 		testBase.driver.findElement(By.xpath("//img[@alt='" + product
@@ -48,82 +47,78 @@ public class CheckOutSummaryPage {
 		return product;
 	}
 
-
-
 //Remove "Faded Short Sleeve T-shirts" product
-public static String remove1Product(String product) {
-	testBase.driver.findElement(By.xpath("//img[@alt='" + product
-			+ "']//parent::a//parent::td//following-sibling::td[@data-title='Delete']//i[@class='icon-trash']"))
-			.click();
+	public static String remove1Product(String product) {
+		testBase.driver.findElement(By.xpath("//img[@alt='" + product
+				+ "']//parent::a//parent::td//following-sibling::td[@data-title='Delete']//i[@class='icon-trash']"))
+				.click();
 
-	return product;
-}
+		return product;
+	}
 
-public static String myProduct1(DataTable dataTable) throws InterruptedException {
+	public static String myProduct1(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	WebElement x = testBase.driver
-			.findElement(By.xpath("//img[@alt='" + map.get("item1") + "']//parent::a//parent::td//parent::tr//p//a"));
-	String a = x.getText();
-	return a;
-}
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		WebElement x = testBase.driver.findElement(
+				By.xpath("//img[@alt='" + map.get("item1") + "']//parent::a//parent::td//parent::tr//p//a"));
+		String a = x.getText();
+		return a;
+	}
 
-public static String expectedItem1(DataTable dataTable) throws InterruptedException {
+	public static String expectedItem1(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	String a = map.get("item1");
-	return a;
-}
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		String a = map.get("item1");
+		return a;
+	}
 
-public static String myProduct2(DataTable dataTable) throws InterruptedException {
+	public static String myProduct2(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	WebElement x = testBase.driver
-			.findElement(By.xpath("//img[@alt='" + map.get("item2") + "']//parent::a//parent::td//parent::tr//p//a"));
-	String a = x.getText();
-	return a;
-}
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		WebElement x = testBase.driver.findElement(
+				By.xpath("//img[@alt='" + map.get("item2") + "']//parent::a//parent::td//parent::tr//p//a"));
+		String a = x.getText();
+		return a;
+	}
 
-public static String expectedItem2(DataTable dataTable) throws InterruptedException {
+	public static String expectedItem2(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	String a = map.get("item2");
-	return a;
-}
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		String a = map.get("item2");
+		return a;
+	}
 
-public static String myQuantity1(DataTable dataTable) throws InterruptedException {
+	public static String myQuantity1(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	WebElement x = testBase.driver
-			.findElement(By.xpath("//img[@alt='" + map.get("item1")
-					+ "']//parent::a//parent::td//following-sibling::td[@class='cart_quantity text-center']//input[@type='hidden' and @value]"));
-	String a = x.getAttribute("value");
-	return a;
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		WebElement x = testBase.driver.findElement(By.xpath("//img[@alt='" + map.get("item1")
+				+ "']//parent::a//parent::td//following-sibling::td[@class='cart_quantity text-center']//input[@type='hidden' and @value]"));
+		String a = x.getAttribute("value");
+		return a;
 
-}
+	}
 
-public static String expectedquantity1(DataTable dataTable) throws InterruptedException {
+	public static String expectedquantity1(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	String a = map.get("quantity1");
-	return a;
-}
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		String a = map.get("quantity1");
+		return a;
+	}
 
-public static String myQuantity2(DataTable dataTable) throws InterruptedException {
+	public static String myQuantity2(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	WebElement x = testBase.driver.findElement(By.xpath("//img[@alt='" + map.get(
-			"item2")
-			+ "']//parent::a//parent::td//following-sibling::td[@class='cart_quantity text-center']//input[@type='hidden' and @value]"));
-	String a = x.getAttribute("value");
-	return a;
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		WebElement x = testBase.driver.findElement(By.xpath("//img[@alt='" + map.get("item2")
+				+ "']//parent::a//parent::td//following-sibling::td[@class='cart_quantity text-center']//input[@type='hidden' and @value]"));
+		String a = x.getAttribute("value");
+		return a;
 
-}
+	}
 
-public static String expectedquantity2(DataTable dataTable) throws InterruptedException {
+	public static String expectedquantity2(DataTable dataTable) throws InterruptedException {
 
-	Map<String, String> map = dataTable.asMap(String.class, String.class);
-	String a = map.get("quantity2");
-	return a;
-}
+		Map<String, String> map = dataTable.asMap(String.class, String.class);
+		String a = map.get("quantity2");
+		return a;
+	}
 }
