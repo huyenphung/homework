@@ -11,6 +11,7 @@ import Base.testBase;
 import Pages.CheckOutPage;
 import Pages.CheckOutSummaryPage;
 import Pages.HomePage;
+import Pages.ListOfCart;
 import Pages.ListOfProductAfterSearchPage;
 import Pages.SelectProduct;
 import cucumber.api.DataTable;
@@ -29,6 +30,7 @@ public class Order {
 	CheckOutSummaryPage checkOutSummary = new CheckOutSummaryPage();
 	testBase testbase = new testBase();
 	JavascriptExecutor js = (JavascriptExecutor) testbase.driver;
+	ListOfCart listOfcart = new ListOfCart();
 
 	@Given("^I launch the page$")
 	public void i_launch_the_page() {
@@ -66,7 +68,7 @@ public class Order {
 	@And("^buy \"([^\"]*)\" T-shirt$")
 	public void buy_T_shirt(String number) throws InterruptedException {
 
-		// testBase.driver.switchTo().frame("fancybox-frame1587024148811");
+		
 		selectProduct.numberOfProduct.clear();
 
 		selectProduct.numberOfProduct.sendKeys(number);
@@ -75,11 +77,7 @@ public class Order {
 
 	@And("^select \"([^\"]*)\" color$")
 	public void select_color(String color) {
-		// String x = selectProduct.selectColor(color);
-//		String x = selectProduct.selectColor.getAttribute("name");
-//		if (color == x) {
-//			selectProduct.selectColor.click();
-//		}
+
 		selectProduct.selectColor(color);
 
 	}
@@ -141,25 +139,11 @@ public class Order {
 
 	@Then("^i select \"([^\"]*)\" shirt$")
 	public void i_select_shirt(String product) throws Throwable {
-//		WebElement x = testBase.driver.findElement(By.xpath("//img[@title='" + product + "']"));
-//		js.executeScript("arguments[0].scrollIntoView();", x);
-//		
-//		ListOfProductAfterSearchPage.hoverOnProduct(product);
-//		Thread.sleep(2000);
 		ListOfProductAfterSearchPage.addToCart(product);
 	}
 
 	@And("^Add to cart button for \"([^\"]*)\" product$")
 	public void add_to_cart_button(String product) throws Throwable {
-//		//"arguments[0].scrollIntoView(true);"
-//		WebElement x = testBase.driver
-//				.findElement(By.xpath(
-//						"//div[@class='product-container']//a[@title='" + product
-//								+ "']//parent::h5//parent::div//a[@title='Add to cart']"));
-//		js.executeScript("arguments[0].scrollIntoView(!false);", x);
-//		
-//		ListOfProductAfterSearchPage.addToCartBtn(product);
-//		Thread.sleep(2000);
 		
 		
 		ListOfProductAfterSearchPage.addToCart(product);
@@ -188,7 +172,7 @@ public class Order {
 		Map<String, String> map = dataTable.asMap(String.class, String.class);
 		Assert.assertEquals(map.get("item1"), ListOfProductAfterSearchPage.verifyItem1(dataTable));
 		Assert.assertEquals(map.get("item2"), ListOfProductAfterSearchPage.verifyItem2(dataTable));
-		Assert.assertEquals(map.get("quantity"), ListOfProductAfterSearchPage.quantity());
+	//	Assert.assertEquals(map.get("quantity"), ListOfProductAfterSearchPage.quantity());
 
 	}
 
@@ -222,13 +206,22 @@ public class Order {
 	@Then("^i check my product list as bellow:$")
 	public void i_check_my_product_list_as_bellow(DataTable dataTable) throws Throwable {
 
-		Assert.assertEquals(CheckOutSummaryPage.expectedItem1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
+	Assert.assertEquals(CheckOutSummaryPage.expectedItem1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
 		Assert.assertEquals(CheckOutSummaryPage.expectedItem2(dataTable), CheckOutSummaryPage.myProduct2(dataTable));
 		Assert.assertEquals(CheckOutSummaryPage.expectedquantity1(dataTable),
 				CheckOutSummaryPage.myQuantity1(dataTable));
 		Assert.assertEquals(CheckOutSummaryPage.expectedquantity2(dataTable),
 				CheckOutSummaryPage.myQuantity2(dataTable));
 
+	}
+	
+	@Then("^i compare with the data on list of card$")
+	public void i_compare_with_the_data_on_list_of_card(DataTable dataTable) throws Throwable {
+Assert.assertEquals(listOfcart.myProduct1(dataTable), CheckOutSummaryPage.myProduct1(dataTable));
+Assert.assertEquals(listOfcart.myQuantity1(dataTable), CheckOutSummaryPage.myQuantity1(dataTable));
+Assert.assertEquals(listOfcart.myProduct2(dataTable), CheckOutSummaryPage.myProduct2(dataTable));
+Assert.assertEquals(listOfcart.myQuantity2(dataTable), CheckOutSummaryPage.myQuantity2(dataTable));	
+	 
 	}
 
 

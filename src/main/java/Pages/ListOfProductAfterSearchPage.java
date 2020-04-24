@@ -93,6 +93,7 @@ public class ListOfProductAfterSearchPage {
 		
 		js.executeScript("arguments[0].scrollIntoView();", productImage);
 		
+		
 		action.moveToElement(productImage).moveToElement(btnAddToCart).click().build().perform();
 		
 	}
@@ -103,6 +104,12 @@ public class ListOfProductAfterSearchPage {
 	
 	public static void waitForPopupClosed() {
 		waitForElementAttributeContainValue("//*[@id='layer_cart']", "style", "none", 7);
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private static void waitForElementAttributeContainValue(String _xpath, String _attributeName, String _attributeValue,
