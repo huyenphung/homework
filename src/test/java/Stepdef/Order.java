@@ -161,7 +161,7 @@ public class Order {
 
 	@And("^i hover on Cart list$")
 	public void i_hover_on_Cart_list() throws Throwable {
-
+		js.executeScript("arguments[0].scrollIntoView();", ListOfProductAfterSearchPage.ListOfCart);
 		Actions action = new Actions(testbase.driver);
 		action.moveToElement(ListOfProductAfterSearchPage.ListOfCart).perform();
 		Thread.sleep(3000);

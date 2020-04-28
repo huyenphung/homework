@@ -88,11 +88,11 @@ Feature: Order scenario
     Then i select "Faded Short Sleeve T-shirts" shirt
     And Add to cart button for "Faded Short Sleeve T-shirts" product
     And Continue to shopping
-    Then i select "Printed Summer Dress" shirt
-    And Add to cart button for "Printed Summer Dress" product
-    And Continue to shopping
     Then i select "Blouse" shirt
     And Add to cart button for "Blouse" product
+    And Continue to shopping
+    Then i select "Printed Dress" shirt
+    And Add to cart button for "Printed Dress" product
     And Continue to shopping
     And i click on Cart list
     And i can see list of my product screen
@@ -101,13 +101,13 @@ Feature: Order scenario
     Then i check my product list as bellow:
       | item1     | Blouse               |
       | quantity1 |                    2 |
-      | item2     | Printed Summer Dress |
+      | item2     | Printed Dress |
       | quantity2 |                    1 |
     And i hover on Cart list
     And i compare with the data on list of card
      | item1     | Blouse               |
       | quantity1 |                    2 |
-      | item2     | Printed Summer Dress |
+      | item2     | Printed Dress |
       | quantity2 |                    1 |
      And i click on Check out button
      And go to check out screen or login screen user enter username and password as below:
